@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_page %} Добавить пост {% endblock %}
+
+{% block title %}
+    <h2 align="left">Добавить пост</h2>
+{% endblock %}
+
+
+{%block content%}
+<body>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Подтвердить">
+        </form>
+</body>
+{% endblock %}
+
+

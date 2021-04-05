@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+{% block title_page %} Вход {% endblock %}
+
+{% block title %}
+    <h2 align="left">Выполнение входа</h2>
+{% endblock %}
+
+
+{%block content%}
+  <body>
+    <form action="" method="post">
+        {% csrf_token %}
+            {% for error in form.non_field_errors %}
+                {{error}}
+            {% endfor %}
+
+            {{ form.source.errors }}
+                {% for field in form %}
+                    <div class="form-group">
+                    <label for="">{{field.label}}</label>
+                        {{field}}
+                    </div>
+                {% endfor %}
+
+        <button type="submit">Войти</button>
+    </form>
+</body>
+{% endblock %}
+
+

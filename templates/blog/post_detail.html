@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title_page %} {{ post.title }} {% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{%block content%}
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="img-thumbnail">
+                    <h3>{{ post.title }}</h3>
+                    <small>{{ post.created }}</small><br>
+                    Автор: {{ post.author }} <br>
+                    <div class="img-thumbnail text-break">{{ post.body }}</div>
+                </div>
+                <br>
+            </div>
+            <div id="like-section">{% include 'blog/post_detail/like_section.html' %}</div>
+            <br><br>
+        </div>
+
+        {% if post.author == user %}
+            <div class="row">
+                {% include 'blog/post_detail/edit_delete.html' %}
+            </div>
+        {% endif %}
+    </div>
+
+    <br><br>
+
+    <div class="main-comment-section">
+        {% include 'blog/post_detail/main_comment_section.html' %}
+    </div>
+
+    <div class="main-comment-section ml-5">
+        {% include 'blog/post_detail/all_comments.html' %}
+    </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,34 @@
+{% load crispy_forms_tags %}
+
+{{ comments.count }} comment{{ comments|pluralize }}
+        {% for comment in comments %}
+
+            <blockquote class="blackquote">
+                <p class="mb-0">{{ comment.content }}</p>
+                <footer class="blockquote-footer"> {{ comment.time_of_comment }}
+                    <cite title="Source Title">{{ comment.user.username }}</cite>
+                </footer>
+            </blockquote>
+
+            {% for reply in comment.replies.all %}
+                <div class="ml-5">
+                <blockquote class="blackquote">
+                    <p class="mb-0"><small>{{ reply.content }}</small></p>
+                    <footer class="blockquote-footer"><small>{{ reply.time_of_comment }}</small>
+                        <cite title="Source Title"><small>{{ reply.user.username }}</small></cite>
+                    </footer>
+                </blockquote>
+                </div>
+            {% endfor %}
+
+            <div class="form-group row ml-4">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        {{ comment_form|crispy }}
+                        <input type="submit" value="Отправить" class="btn btn-outline-success">
+                    {% endif %}
+                </form>
+            </div>
+        {% endfor %}

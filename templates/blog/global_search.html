@@ -1,0 +1,56 @@
+{% extends '_base.html' %}
+{% block title_page %} Результаты поиска {% endblock %}
+
+{% block title %}
+    <h2 class="head ml-4" align="left">Результаты поиска по запросу: "{{ query }}"</h2>
+{% endblock %}
+
+{%block content%}
+    <div class="container-fluid">
+            <div class="row">
+                {% for p in result %}
+                    <div class="col-md-6">
+                        <div class="img-thumbnail">
+                            <a href="{{ p.get_absolute_url }}">{{ p.title }}</a>
+                            <small>({{ p.created }})</small><br>
+                            Автор: {{ p.author }} <br>
+                            Текст поста: {{ p.body| slice:25 }}..
+                        </div>
+                        <br>
+                    </div>
+                {% empty %}
+                    <div class="container-fluid">
+                        <h3>Нет постов, которые соответствуют критериям поиска</h3>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        <ul class="pagination">
+            {% if result.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ result.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true"><<</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for p in page_range %}
+                {% if result.number == p %}
+                    <li class="page-item active"><a class="page-link" href="?q={{ query }}&page={{ p }}">{{ p }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?q={{ query }}&page={{ p }}">{{ p }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if result.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ result.next_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">>></span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+{% endblock %}

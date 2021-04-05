@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{% block title_page %} Регистрация {% endblock %}
+
+{% block title %}
+    <h2 align="left">Регистрация пользователя</h2>
+{% endblock %}
+
+
+{%block content%}
+  <body>
+
+    <form action="" method="post">
+      {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+            <label for="">{{field.label}}</label>
+                {{field}}
+                {% if field.errors %}
+                    <p>{{field.errors}}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+</body>
+{% endblock %}
+
+

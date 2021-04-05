@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+
+<div class="container-fluid mt-2 ml-2">
+    <div class="form-group row">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                {{ comment_form|crispy }}
+                <input type="submit" value="Отправить" class="btn btn-outline-success">
+            {% endif %}
+        </form>
+    </div>
+</div>
